@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Thunderstorm Power Index (TPI) Calculator" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TPI Calculator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .calculator-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .factor-row {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .factor-row label {
+      flex: 1;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .factor-row select,
+    .factor-row input {
+      flex: 1;
+      padding: 5px;
+      font-size: 1rem;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      padding: 10px;
+      background: #e3f2fd;
+      border-radius: 8px;
+      border: 1px solid #bbdefb;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>Thunderstorm Power Index (TPI) Calculator</h1>
+  <div class="calculator-container">
+    <p style="text-align:center;">
+      Select values (1-5) for each factor based on your assessment of the storm. Then click "Calculate TPI."
+    </p>
+
+    <!-- CAPE Factor -->
+    <div class="factor-row">
+      <label for="capeFactor">CAPE Factor (C)</label>
+      <select id="capeFactor">
+        <option value="1">1 (Low CAPE: &lt;500 J/kg)</option>
+        <option value="2">2 (Moderate CAPE: 500-1500 J/kg)</option>
+        <option value="3">3 (High CAPE: 1500-3000 J/kg)</option>
+        <option value="4">4 (Very High CAPE: 3000-4500 J/kg)</option>
+        <option value="5">5 (Extreme CAPE: >4500 J/kg)</option>
+      </select>
+    </div>
+
+    <!-- Shear Factor -->
+    <div class="factor-row">
+      <label for="shearFactor">Shear Factor (S)</label>
+      <select id="shearFactor">
+        <option value="1">1 (Weak Shear: &lt;20 kt)</option>
+        <option value="2">2 (Modest Shear: 20-35 kt)</option>
+        <option value="3">3 (Decent Shear: 35-50 kt)</option>
+        <option value="4">4 (Strong Shear: 50-65 kt)</option>
+        <option value="5">5 (Very Strong: &gt;65 kt)</option>
+      </select>
+    </div>
+
+    <!-- Lightning Factor -->
+    <div class="factor-row">
+      <label for="lightningFactor">Lightning Factor (L)</label>
+      <select id="lightningFactor">
+        <option value="1">1 (Occasional Flash)</option>
+        <option value="2">2 (Steady, ~5-15/min)</option>
+        <option value="3">3 (Frequent, 15-30/min)</option>
+        <option value="4">4 (Very Frequent, 30-45/min)</option>
+        <option value="5">5 (Intense Barrage, &gt;45/min)</option>
+      </select>
+    </div>
+
+    <!-- Updraft Strength Factor -->
+    <div class="factor-row">
+      <label for="updraftFactor">Updraft Strength (U)</label>
+      <select id="updraftFactor">
+        <option value="1">1 (Weak Updraft)</option>
+        <option value="2">2 (Modest Updraft)</option>
+        <option value="3">3 (Strong Updraft)</option>
+        <option value="4">4 (Very Strong Updraft)</option>
+        <option value="5">5 (Extreme Updraft / Rotation)</option>
+      </select>
+    </div>
+
+    <!-- Precipitation Core Factor -->
+    <div class="factor-row">
+      <label for="precipFactor">Precip. Core (P)</label>
+      <select id="precipFactor">
+        <option value="1">1 (&lt;55 dBZ)</option>
+        <option value="2">2 (55-60 dBZ)</option>
+        <option value="3">3 (60-65 dBZ)</option>
+        <option value="4">4 (65-70 dBZ)</option>
+        <option value="5">5 (&gt;70 dBZ)</option>
+      </select>
+    </div>
+
+    <button onclick="calculateTPI()">Calculate TPI</button>
+
+    <div id="result"></div>
+  </div>
+
+  <footer>
+    Created by <strong>YourName</strong> — hosted on GitHub Pages
+  </footer>
+
+  <script>
+    function calculateTPI() {
+      // Get selected values
+      const cape = parseInt(document.getElementById('capeFactor').value, 10);
+      const shear = parseInt(document.getElementById('shearFactor').value, 10);
+      const lightning = parseInt(document.getElementById('lightningFactor').value, 10);
+      const updraft = parseInt(document.getElementById('updraftFactor').value, 10);
+      const precip = parseInt(document.getElementById('precipFactor').value, 10);
+
+      // Sum them
+      const TPI = cape + shear + lightning + updraft + precip;
+
+      // Basic interpretation logic
+      let interpretation = '';
+      if (TPI <= 10) {
+        interpretation = 'Weak to Moderate Thunderstorm Potential';
+      } else if (TPI <= 15) {
+        interpretation = 'Strong Storm Potential (could be locally severe)';
+      } else if (TPI <= 20) {
+        interpretation = 'Severe Storm Potential (large hail, damaging winds, maybe tornadoes)';
+      } else {
+        interpretation = 'Extreme Storm Potential (significant severe threat)';
+      }
+
+      // Display result
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
+        <strong>TPI = ${TPI}</strong><br />
+        <em>${interpretation}</em>
+      `;
+    }
+  </script>
+</body>
+</html>
