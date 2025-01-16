@@ -12,7 +12,7 @@
       background: #f9f9f9;
     }
 
-    h1, h2 {
+    h1, h2, h3 {
       text-align: center;
     }
 
@@ -70,16 +70,30 @@
       border: 1px solid #bbdefb;
     }
 
+    .info-section {
+      max-width: 600px;
+      margin: 30px auto 0 auto;
+      background: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
     footer {
       text-align: center;
       margin-top: 30px;
       font-size: 0.9rem;
       color: #777;
     }
+
+    hr {
+      margin: 30px 0;
+    }
   </style>
 </head>
 <body>
   <h1>Thunderstorm Power Index (TPI) Calculator</h1>
+
   <div class="calculator-container">
     <p style="text-align:center;">
       Select values (1-5) for each factor based on your assessment of the storm. Then click "Calculate TPI."
@@ -93,7 +107,7 @@
         <option value="2">2 (Moderate CAPE: 500-1500 J/kg)</option>
         <option value="3">3 (High CAPE: 1500-3000 J/kg)</option>
         <option value="4">4 (Very High CAPE: 3000-4500 J/kg)</option>
-        <option value="5">5 (Extreme CAPE: >4500 J/kg)</option>
+        <option value="5">5 (Extreme CAPE: &gt;4500 J/kg)</option>
       </select>
     </div>
 
@@ -148,6 +162,74 @@
     <button onclick="calculateTPI()">Calculate TPI</button>
 
     <div id="result"></div>
+  </div>
+
+  <hr />
+
+  <div class="info-section">
+    <h2>How the TPI Works</h2>
+    <p>
+      The <strong>Thunderstorm Power Index (TPI)</strong> is a simple way to summarize a thunderstorm's potential strength.
+      It combines five factors—<em>CAPE, Shear, Lightning, Updraft Strength, and Precipitation Core</em>—to produce a
+      single value from 5 (weak) to 25 (extreme).
+    </p>
+    <ul>
+      <li><strong>CAPE (Convective Available Potential Energy)</strong>: Measures the buoyant energy available to fuel thunderstorm updrafts.</li>
+      <li><strong>Wind Shear (Vertical Shear / Storm-Relative Helicity)</strong>: Determines how organized and long-lived a thunderstorm can become.</li>
+      <li><strong>Lightning Frequency</strong>: An indicator of storm vigor and active updrafts.</li>
+      <li><strong>Updraft Strength</strong>: Reflects hail potential, storm rotation, or overall vertical motion in the storm.</li>
+      <li><strong>Precipitation Core (Reflectivity)</strong>: High reflectivity often signifies intense rain or hail.</li>
+    </ul>
+
+    <h3>Where to Get the Data</h3>
+    <p><strong>Hobbyist/Field Observation:</strong></p>
+    <ul>
+      <li>
+        <strong>CAPE</strong>: Check local forecast discussions or free weather apps that provide approximate CAPE.  
+        Look for phrases like "moderate instability" or “CAPE ~2000 J/kg” in National Weather Service (NWS) discussions (U.S.) or equivalent agencies in your country.
+      </li>
+      <li>
+        <strong>Shear</strong>: Again, local forecast discussions often mention “weak,” “moderate,” or “strong” shear. You can also check sites like the <em>Storm Prediction Center Mesoscale Analysis</em>.
+      </li>
+      <li>
+        <strong>Lightning</strong>: Many free sites (e.g., Blitzortung, LightningMaps.org) or phone apps let you see approximate lightning rates.
+      </li>
+      <li>
+        <strong>Updraft Strength</strong>: Look for signs of hail (crowdsourced reports, social media), very rapid cloud growth, or strong outflow winds. Some radar apps also show echo tops.
+      </li>
+      <li>
+        <strong>Precipitation Core</strong>: Free radar sites or apps (e.g., Weather Underground, RadarScope) show reflectivity values in dBZ. Compare the color scale to approximate the 1–5 score.
+      </li>
+    </ul>
+
+    <p><strong>Professional or Advanced Sources:</strong></p>
+    <ul>
+      <li>
+        <strong>CAPE</strong>: Exact readings from weather balloons (soundings) or high-resolution forecast models (like the HRRR in the U.S.).
+      </li>
+      <li>
+        <strong>Shear</strong>: 0–6 km bulk shear or storm-relative helicity from model data or mesoanalysis pages.
+      </li>
+      <li>
+        <strong>Lightning</strong>: Real-time lightning detection networks (Vaisala, Earth Networks, etc.) or satellite-based lightning mappers.
+      </li>
+      <li>
+        <strong>Updraft Strength</strong>: Updraft Helicity (UH) from high-res models or Doppler radar velocity data for supercell rotation.
+      </li>
+      <li>
+        <strong>Precip. Core</strong>: Max reflectivity, VIL (Vertically Integrated Liquid), or dual-pol radar signatures for hail detection.
+      </li>
+    </ul>
+
+    <h3>Interpreting the TPI Value</h3>
+    <p>After you select each factor (1 to 5) and click "Calculate TPI," you get a total score between 5 and 25:</p>
+    <ul>
+      <li><strong>5–10:</strong> Weak to Moderate Thunderstorm Potential</li>
+      <li><strong>11–15:</strong> Strong Storm Potential (could be locally severe)</li>
+      <li><strong>16–20:</strong> Severe Storm Potential (large hail, damaging winds, maybe tornadoes)</li>
+      <li><strong>21–25:</strong> Extreme Storm Potential (significant severe threat)</li>
+    </ul>
+    <p>This is a simplified index—thunderstorms can change quickly, and local conditions can vary. Always follow official forecasts and warnings.</p>
   </div>
 
   <footer>
