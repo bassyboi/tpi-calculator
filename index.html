@@ -2,47 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Thunderstorm Power Index (TPI) Calculator with Detailed Scoring" />
+  <meta name="description" content="Thunderstorm Power Index (TPI) Calculator with Detailed Scoring and Contributing Info" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TPI Calculator (Field & Pro, Metric & Imperial)</title>
+  <title>TPI Calculator (Field &amp; Pro, Metric &amp; Imperial)</title>
   <style>
     body {
       font-family: sans-serif;
       margin: 20px;
       background: #f9f9f9;
+      line-height: 1.6;
     }
-
     h1, h2, h3, h4 {
       text-align: center;
     }
-
-    .calculator-container, .info-section {
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    .calculator-container, .info-section, .contributing-section {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 0 auto 30px;
       background: #fff;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
     }
-
     .factor-row {
       display: flex;
       align-items: center;
       margin: 10px 0;
     }
-
     .factor-row label {
       flex: 1;
       font-weight: bold;
       margin-right: 10px;
     }
-
     .factor-row select {
       flex: 1;
       padding: 5px;
       font-size: 1rem;
     }
-
     button {
       display: block;
       margin: 20px auto;
@@ -54,11 +55,9 @@
       border: none;
       border-radius: 4px;
     }
-
     button:hover {
       background: #0056b3;
     }
-
     #result {
       text-align: center;
       margin-top: 20px;
@@ -68,46 +67,48 @@
       border-radius: 8px;
       border: 1px solid #bbdefb;
     }
-
-    .info-section {
-      margin-top: 30px;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 1rem;
     }
-
     table th, table td {
       border: 1px solid #ccc;
       padding: 8px;
       text-align: left;
       font-size: 0.95rem;
     }
-
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #0056b3;
+    }
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    .note {
+      background: #fff9c4;
+      border-left: 5px solid #ffeb3b;
+      padding: 10px;
+      margin: 20px 0;
+    }
     footer {
       text-align: center;
       margin-top: 30px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #777;
-    }
-
-    hr {
-      margin: 30px 0;
-    }
-
-    .subtitle {
-      text-align: center;
-      font-style: italic;
-      margin-bottom: 10px;
-      color: #555;
     }
   </style>
 </head>
 <body>
+
+  <!-- PAGE TITLE & SUBTITLE -->
   <h1>Thunderstorm Power Index (TPI) Calculator</h1>
-  <p class="subtitle">Field &amp; Pro Guidance | Metric &amp; Imperial Units</p>
+  <p class="subtitle">Field &amp; Pro Guidance | Metric &amp; Imperial Units | Contributing Info</p>
 
   <!-- CALCULATOR CONTAINER -->
   <div class="calculator-container">
@@ -183,19 +184,14 @@
     <div id="result"></div>
   </div>
 
-  <hr />
-
   <!-- INFO SECTION -->
   <div class="info-section">
     <h2>How the TPI Works</h2>
     <p>
       The <strong>Thunderstorm Power Index (TPI)</strong> is a simple way to estimate a storm’s potential strength.  
       It combines five factors—<em>CAPE, Wind Shear, Lightning, Updraft Strength, and Precipitation Core</em>—into  
-      a single value from <strong>5</strong> (weak) to <strong>25</strong> (extreme). Below are detailed scoring  
-      guidelines for both <em>field/hobbyist</em> and <em>professional</em> approaches, including metric and  
-      imperial units.
+      a single value from <strong>5</strong> (weak) to <strong>25</strong> (extreme). 
     </p>
-
     <h3>Interpretation of Final TPI Score</h3>
     <ul>
       <li><strong>5–10:</strong> Weak to Moderate Thunderstorm Potential</li>
@@ -205,9 +201,9 @@
     </ul>
     <p>Even low scores can still produce hazardous weather (e.g., lightning, localized flooding). Always follow <strong>official forecasts and warnings</strong>.</p>
 
-    <h2>1. CAPE (Convective Available Potential Energy)</h2>
+    <h2>CAPE (Convective Available Potential Energy)</h2>
     <ul>
-      <li><strong>Field/Hobbyist:</strong> Look for phrases like “moderate instability” or approximate CAPE values in local forecasts or weather apps.</li>
+      <li><strong>Field/Hobbyist:</strong> Look for “moderate instability” or approximate CAPE in local forecasts/apps.</li>
       <li><strong>Professional:</strong> Use weather balloon soundings or high-resolution model data (HRRR, ACCESS, etc.).</li>
     </ul>
     <table>
@@ -222,12 +218,12 @@
         <tr>
           <td>1</td>
           <td>&lt; 500</td>
-          <td>Very low (isolated weak storms)</td>
+          <td>Very low (weak or isolated storms)</td>
         </tr>
         <tr>
           <td>2</td>
           <td>500–1500</td>
-          <td>Low to moderate instability</td>
+          <td>Low-moderate instability</td>
         </tr>
         <tr>
           <td>3</td>
@@ -247,12 +243,12 @@
       </tbody>
     </table>
 
-    <h2>2. Wind Shear (S)</h2>
+    <h2>Wind Shear (S)</h2>
     <ul>
-      <li><strong>Field/Hobbyist:</strong> Forecast discussions often say “weak,” “moderate,” or “strong” shear. You can also see approximate values on <em>SPC Mesoscale Analysis</em> (U.S.) or local weather agencies.</li>
-      <li><strong>Professional:</strong> 0–6 km bulk shear in knots (kt) or m/s from model data, or storm-relative helicity (SRH). More shear = more organized storms.</li>
+      <li><strong>Field/Hobbyist:</strong> Forecast says “weak,” “moderate,” or “strong” shear. Or check SPC (U.S.).</li>
+      <li><strong>Professional:</strong> 0–6 km bulk shear in knots. More shear = more organized storms.</li>
     </ul>
-    <p><em>Note:</em> 1 knot (kt) ≈ 1.15 mph ≈ 1.85 km/h. So 20 kt ~ 23 mph ~ 37 km/h, 50 kt ~ 58 mph ~ 93 km/h.</p>
+    <p><em>Note:</em> 1 knot (kt) ≈ 1.15 mph ≈ 1.85 km/h.</p>
     <table>
       <thead>
         <tr>
@@ -302,10 +298,10 @@
       </tbody>
     </table>
 
-    <h2>3. Lightning (L)</h2>
+    <h2>Lightning (L)</h2>
     <ul>
-      <li><strong>Field/Hobbyist:</strong> Check free apps (e.g., Blitzortung, LightningMaps.org) for approximate flashes/min, or estimate visually (flashes every few seconds).</li>
-      <li><strong>Professional:</strong> Use lightning detection networks or satellite-based mappers for precise flash rates.</li>
+      <li><strong>Field/Hobbyist:</strong> Check free apps (LightningMaps.org) or estimate visually (flashes every few seconds).</li>
+      <li><strong>Professional:</strong> Real-time lightning detection networks or satellite-based mappers.</li>
     </ul>
     <table>
       <thead>
@@ -318,7 +314,7 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>Occasional flash, big quiet gaps</td>
+          <td>Occasional, big quiet gaps</td>
           <td>&lt; 5</td>
         </tr>
         <tr>
@@ -344,13 +340,12 @@
       </tbody>
     </table>
 
-    <h2>4. Updraft Strength (U)</h2>
+    <h2>Updraft Strength (U)</h2>
     <ul>
-      <li><strong>Field/Hobbyist:</strong> Look for hail reports, strong outflow winds, very rapid tower growth. If radar apps show tall echo tops, that’s another clue.</li>
-      <li><strong>Professional:</strong> Updraft Helicity (UH) from hi-res models, Doppler velocity for supercell rotation, or large hail signatures.</li>
+      <li><strong>Field/Hobbyist:</strong> Hail reports, strong outflow, rapid tower growth, echo tops. </li>
+      <li><strong>Professional:</strong> Updraft Helicity (UH), Doppler velocity (rotation), large hail signatures.</li>
     </ul>
-    <p>Use hail sizes in <strong>inches/cm</strong> to guess updraft power. For reference:  
-       1" ~ 2.5 cm, 1.5" ~ 3.8 cm, 2" ~ 5.1 cm, 2.5" ~ 6.4 cm, etc.</p>
+    <p>For hail, note 1 inch = 2.54 cm, 1.5" ~ 3.8 cm, 2" ~ 5.1 cm, 2.5" ~ 6.4 cm.</p>
     <table>
       <thead>
         <tr>
@@ -362,13 +357,13 @@
       <tbody>
         <tr>
           <td>1</td>
-          <td>No hail or very tiny (&lt;0.5"/&lt;1.3 cm)</td>
+          <td>No hail or &lt;0.5" (~1.3 cm)</td>
           <td>Weak, minimal vertical motion</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Small hail (0.5–1.0" / ~1.3–2.5 cm)</td>
-          <td>Modest updraft, short-lived storms</td>
+          <td>Small hail (0.5–1.0" / 1.3–2.5 cm)</td>
+          <td>Modest updraft, short-lived</td>
         </tr>
         <tr>
           <td>3</td>
@@ -378,20 +373,20 @@
         <tr>
           <td>4</td>
           <td>Hail 1.5–2.5" (~3.8–6.4 cm)</td>
-          <td>Very strong, significant severe threat</td>
+          <td>Very strong, severe threat</td>
         </tr>
         <tr>
           <td>5</td>
-          <td>Hail &gt;2.5" (&gt;6.4 cm)</td>
-          <td>Extreme updraft / rotation likely</td>
+          <td>&gt;2.5" (&gt;6.4 cm)</td>
+          <td>Extreme updraft/rotation likely</td>
         </tr>
       </tbody>
     </table>
 
-    <h2>5. Precipitation Core (P)</h2>
+    <h2>Precipitation Core (P)</h2>
     <ul>
-      <li><strong>Field/Hobbyist:</strong> Use free radar apps (e.g., Weather Underground, RadarScope) to see reflectivity. Compare with color scale to approximate dBZ.</li>
-      <li><strong>Professional:</strong> Use advanced radar products (dual-pol, VIL, etc.). Values &gt;65 dBZ often indicate large hail.</li>
+      <li><strong>Field/Hobbyist:</strong> Free radar apps (RadarScope, Weather Underground) for reflectivity dBZ.</li>
+      <li><strong>Professional:</strong> Advanced radar (dual-pol, VIL). Over ~65 dBZ often signals hail.</li>
     </ul>
     <table>
       <thead>
@@ -430,22 +425,98 @@
       </tbody>
     </table>
 
-    <h3>Measurement Conversions</h3>
+    <p>
+      <strong>Measurement Conversions:</strong> 1 knot ~ 1.15 mph ~ 1.85 km/h | 1" hail ~ 2.54 cm
+      <br />
+      By combining (C) CAPE + (S) Shear + (L) Lightning + (U) Updraft + (P) Precip,  
+      you get a <strong>TPI</strong> from <strong>5 to 25</strong>.
+    </p>
+  </div>
+
+  <!-- CONTRIBUTING SECTION -->
+  <div class="contributing-section">
+    <h2>Contributing &amp; Feedback</h2>
+    <p>
+      Thank you for your interest in improving the
+      <strong>Thunderstorm Power Index (TPI) Calculator</strong>! You can find the repository here:
+      <a href="https://github.com/bassyboi/tpi-calculator" target="_blank">
+        github.com/bassyboi/tpi-calculator
+      </a>.
+    </p>
+    <hr />
+
+    <h3>1. Suggest Ideas</h3>
+    <p>
+      Have a new feature or tweak in mind? Please open a <strong>GitHub Issue</strong>:
+    </p>
+    <ol>
+      <li>
+        Go to 
+        <a href="https://github.com/bassyboi/tpi-calculator/issues" target="_blank">
+          Issues
+        </a>.
+      </li>
+      <li>Click <code>New issue</code>.</li>
+      <li>Provide a descriptive title (e.g. "Improve hail-size guidelines") and detail.</li>
+    </ol>
+
+    <h3>2. Report an Issue or Bug</h3>
+    <p>
+      Found a bug? Something not working? Let us know:
+    </p>
+    <ol>
+      <li>
+        Visit 
+        <a href="https://github.com/bassyboi/tpi-calculator/issues" target="_blank">
+          the Issues page
+        </a>.
+      </li>
+      <li>Click <code>New issue</code>, use a title like "Bug:" or "Error:".</li>
+      <li>Explain:
+        <ul>
+          <li>What you did (steps to reproduce).</li>
+          <li>What you expected vs. what happened.</li>
+          <li>Attach console errors or screenshots if possible.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h3>3. Contribute Code (Pull Requests)</h3>
+    <ol>
+      <li>Fork the repo by clicking <code>Fork</code> at the top right of the
+        <a href="https://github.com/bassyboi/tpi-calculator" target="_blank">GitHub page</a>.
+      </li>
+      <li>Clone your fork locally:  
+        <code>git clone https://github.com/YourUsername/tpi-calculator.git</code>
+      </li>
+      <li>Create a branch: <code>git checkout -b feature/improve-hail-scale</code></li>
+      <li>Make changes, then <code>git add .</code> &amp; <code>git commit -m "Improve hail size guidelines"</code></li>
+      <li>Push &amp; open a pull request describing what you changed.</li>
+    </ol>
+    <p>A maintainer will review and possibly merge your PR.</p>
+
+    <h3>4. Ideas for Future Enhancements</h3>
     <ul>
-      <li><strong>Knots to mph/km/h:</strong> 1 kt ≈ 1.15 mph ≈ 1.85 km/h</li>
-      <li><strong>Hail size:</strong> 1 inch = 2.54 cm</li>
-      <li><strong>CAPE:</strong> Measured in J/kg (no direct imperial equivalent, but used worldwide)</li>
+      <li>Interactive input for exact CAPE/Shear values (auto-convert to 1–5 scale).</li>
+      <li>Localization for different regions (more Australian references, etc.).</li>
+      <li>Better visuals or real-time storm data integration.</li>
+      <li>Weather API hook to auto-populate factors if a user inputs a location.</li>
     </ul>
 
+    <h3>5. Stay Informed</h3>
     <p>
-      By combining (C) CAPE + (S) Shear + (L) Lightning + (U) Updraft + (P) Precip,  
-      you get a <strong>TPI score</strong> from <strong>5 to 25</strong>. Use the detailed tables  
-      above to pick the best number (1–5) for each factor based on your available data.
+      You can <strong>watch</strong> or <strong>star</strong> the repository on GitHub to get updates.
+      If you have questions, post an issue labeled <code>question</code>.
     </p>
   </div>
 
   <footer>
-    Created by <strong>YourName</strong> — Field &amp; Pro Guidance (Metric &amp; Imperial) — Hosted on GitHub Pages
+    <p>
+      &copy; 2023 TPI Calculator — 
+      <a href="https://github.com/bassyboi/tpi-calculator" target="_blank">GitHub Repo</a>  
+      <br />
+      Created by <strong>YourName</strong> — Field &amp; Pro Guidance (Metric &amp; Imperial)
+    </p>
   </footer>
 
   <script>
