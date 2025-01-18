@@ -141,7 +141,7 @@
       </select>
     </div>
 
-    <!-- Lightning Factor -->
+    <!-- Lightning Factor (L) -->
     <div class="factor-row">
       <label for="lightningFactor">Lightning Factor (L)</label>
       <select id="lightningFactor">
@@ -151,6 +151,11 @@
         <option value="4">4 (Very Frequent, 30-45/min)</option>
         <option value="5">5 (Intense Barrage, &gt;45/min)</option>
       </select>
+
+      <!-- ADDED CODE: Button to predict lightning automatically -->
+      <button type="button" onclick="predictLightning()" style="margin-left:10px;">
+        Predict Lightning
+      </button>
     </div>
 
     <!-- Updraft Strength Factor -->
@@ -490,8 +495,8 @@
         <code>git clone https://github.com/YourUsername/tpi-calculator.git</code>
       </li>
       <li>Create a branch: <code>git checkout -b feature/improve-hail-scale</code></li>
-      <li>Make changes, then <code>git add .</code> &amp; <code>git commit -m "Improve hail size guidelines"</code></li>
-      <li>Push &amp; open a pull request describing what you changed.</li>
+      <li>Make changes, then <code>git add .</code> & <code>git commit -m "Improve hail size guidelines"</code></li>
+      <li>Push & open a pull request describing what you changed.</li>
     </ol>
     <p>A maintainer will review and possibly merge your PR.</p>
 
@@ -522,11 +527,11 @@
   <script>
     function calculateTPI() {
       // Get selected values
-      const cape = parseInt(document.getElementById('capeFactor').value, 10);
-      const shear = parseInt(document.getElementById('shearFactor').value, 10);
+      const cape      = parseInt(document.getElementById('capeFactor').value, 10);
+      const shear     = parseInt(document.getElementById('shearFactor').value, 10);
       const lightning = parseInt(document.getElementById('lightningFactor').value, 10);
-      const updraft = parseInt(document.getElementById('updraftFactor').value, 10);
-      const precip = parseInt(document.getElementById('precipFactor').value, 10);
+      const updraft   = parseInt(document.getElementById('updraftFactor').value, 10);
+      const precip    = parseInt(document.getElementById('precipFactor').value, 10);
 
       // Sum them
       const TPI = cape + shear + lightning + updraft + precip;
@@ -545,10 +550,25 @@
 
       // Display result
       const resultDiv = document.getElementById('result');
-      resultDiv.innerHTML = 
+      // Use backticks for multi-line string
+      resultDiv.innerHTML = `
         <strong>TPI = ${TPI}</strong><br />
         <em>${interpretation}</em>
-      ;
+      `;
+    }
+
+    // ADDED CODE: PREDICT LIGHTNING FUNCTION
+    function predictLightning() {
+      /**
+       * For demo, we’ll just produce a random factor (1–5).
+       * You could replace this with an actual API call or
+       * advanced logic derived from Skew-T data.
+       */
+      const randomFactor = Math.floor(Math.random() * 5) + 1;
+      // Set the dropdown value
+      document.getElementById('lightningFactor').value = randomFactor;
+      // (Optional) Give the user some feedback
+      alert(`Predicted Lightning Factor: ${randomFactor}`);
     }
   </script>
 </body>
