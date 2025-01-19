@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Thunderstorm Power Index (TPI) Calculator with Detailed Scoring and Contributing Info" />
+  <meta name="description" content="TPI with Real Numeric Inputs" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TPI Calculator (Field &amp; Pro, Metric &amp; Imperial)</title>
+  <title>Real-Value TPI Calculator</title>
   <style>
     body {
       font-family: sans-serif;
@@ -12,563 +12,320 @@
       background: #f9f9f9;
       line-height: 1.6;
     }
-    h1, h2, h3, h4 {
+    h1, h2 {
       text-align: center;
     }
-    .subtitle {
-      text-align: center;
-      font-style: italic;
-      margin-bottom: 10px;
-      color: #555;
-    }
-    .calculator-container, .info-section, .contributing-section {
+    .calculator-container {
       max-width: 800px;
-      margin: 0 auto 30px;
+      margin: 0 auto;
       background: #fff;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
     }
-    .factor-row {
+    .input-row {
       display: flex;
-      align-items: center;
+      align-items: baseline;
       margin: 10px 0;
     }
-    .factor-row label {
-      flex: 1;
+    .input-row label {
+      width: 200px;
       font-weight: bold;
       margin-right: 10px;
     }
-    .factor-row select {
-      flex: 1;
+    .input-row input {
+      width: 100px;
       padding: 5px;
-      font-size: 1rem;
+      margin-right: 10px;
+    }
+    .factors {
+      margin-top: 20px;
+      padding: 10px;
+      background: #fafafa;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.95rem;
     }
     button {
-      display: block;
-      margin: 20px auto;
-      padding: 10px 20px;
-      font-size: 1.1rem;
       cursor: pointer;
       background: #007BFF;
       color: #fff;
       border: none;
       border-radius: 4px;
+      font-size: 1rem;
+      padding: 10px 15px;
+      margin-top: 20px;
     }
     button:hover {
       background: #0056b3;
     }
-    #result {
-      text-align: center;
+    #result, #synergyBreakdown {
       margin-top: 20px;
-      font-size: 1.2rem;
       padding: 10px;
       background: #e3f2fd;
-      border-radius: 8px;
       border: 1px solid #bbdefb;
+      border-radius: 8px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1rem;
-    }
-    table th, table td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-      font-size: 0.95rem;
-    }
-    a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-    a:hover {
-      color: #0056b3;
-    }
-    code {
-      background: #eee;
-      padding: 2px 5px;
-      border-radius: 4px;
+    #synergyBreakdown {
+      background: #fff9c4;
+      border-color: #fff176;
     }
     .note {
-      background: #fff9c4;
-      border-left: 5px solid #ffeb3b;
-      padding: 10px;
-      margin: 20px 0;
-    }
-    footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 0.85rem;
-      color: #777;
+      font-size: 0.9rem;
+      color: #666;
+      font-style: italic;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
+  <h1>Thunderstorm Power Index (TPI)</h1>
+  <h2>Using Real Numeric Inputs</h2>
 
-  <!-- PAGE TITLE & SUBTITLE -->
-  <h1>Thunderstorm Power Index (TPI) Calculator</h1>
-  <p class="subtitle">Field &amp; Pro Guidance | Metric &amp; Imperial Units | Contributing Info</p>
-
-  <!-- CALCULATOR CONTAINER -->
   <div class="calculator-container">
-    <p style="text-align:center;">
-      Select values <strong>(1-5)</strong> for each factor based on your assessment of the storm.  
-      Then click <strong>"Calculate TPI"</strong>.
-    </p>
-
-    <!-- CAPE Factor -->
-    <div class="factor-row">
-      <label for="capeFactor">CAPE Factor (C)</label>
-      <select id="capeFactor">
-        <option value="1">1 (Low CAPE: &lt;500 J/kg)</option>
-        <option value="2">2 (Moderate CAPE: 500-1500 J/kg)</option>
-        <option value="3">3 (High CAPE: 1500-3000 J/kg)</option>
-        <option value="4">4 (Very High CAPE: 3000-4500 J/kg)</option>
-        <option value="5">5 (Extreme CAPE: &gt;4500 J/kg)</option>
-      </select>
+    <div class="input-row">
+      <label for="capeInput">CAPE (J/kg)</label>
+      <input type="number" id="capeInput" value="2000" />
+      <span class="note">e.g., 0–6000+ typical range</span>
     </div>
 
-    <!-- Shear Factor -->
-    <div class="factor-row">
-      <label for="shearFactor">Shear Factor (S)</label>
-      <select id="shearFactor">
-        <option value="1">1 (Weak Shear: &lt;20 kt)</option>
-        <option value="2">2 (Modest Shear: 20-35 kt)</option>
-        <option value="3">3 (Decent Shear: 35-50 kt)</option>
-        <option value="4">4 (Strong Shear: 50-65 kt)</option>
-        <option value="5">5 (Very Strong: &gt;65 kt)</option>
-      </select>
+    <div class="input-row">
+      <label for="shearInput">Wind Shear (knots)</label>
+      <input type="number" id="shearInput" value="30" />
+      <span class="note">0–80+ typical range</span>
     </div>
 
-    <!-- Lightning Factor (L) -->
-    <div class="factor-row">
-      <label for="lightningFactor">Lightning Factor (L)</label>
-      <select id="lightningFactor">
-        <option value="1">1 (Occasional Flash)</option>
-        <option value="2">2 (Steady, ~5-15/min)</option>
-        <option value="3">3 (Frequent, 15-30/min)</option>
-        <option value="4">4 (Very Frequent, 30-45/min)</option>
-        <option value="5">5 (Intense Barrage, &gt;45/min)</option>
-      </select>
-
-      <!-- ADDED CODE: Button to predict lightning automatically -->
-      <button type="button" onclick="predictLightning()" style="margin-left:10px;">
-        Predict Lightning
-      </button>
+    <div class="input-row">
+      <label for="lightningInput">Lightning (flashes/min)</label>
+      <input type="number" id="lightningInput" value="15" />
+      <span class="note">0–60+ typical range</span>
     </div>
 
-    <!-- Updraft Strength Factor -->
-    <div class="factor-row">
-      <label for="updraftFactor">Updraft Strength (U)</label>
-      <select id="updraftFactor">
-        <option value="1">1 (Weak Updraft)</option>
-        <option value="2">2 (Modest Updraft)</option>
-        <option value="3">3 (Strong Updraft)</option>
-        <option value="4">4 (Very Strong Updraft)</option>
-        <option value="5">5 (Extreme Updraft / Rotation)</option>
-      </select>
+    <div class="input-row">
+      <label for="midRhInput">Mid-level RH (%)</label>
+      <input type="number" id="midRhInput" value="50" />
+      <span class="note">Used for "Dryness" factor</span>
     </div>
 
-    <!-- Precipitation Core Factor -->
-    <div class="factor-row">
-      <label for="precipFactor">Precip. Core (P)</label>
-      <select id="precipFactor">
-        <option value="1">1 (&lt;55 dBZ)</option>
-        <option value="2">2 (55-60 dBZ)</option>
-        <option value="3">3 (60-65 dBZ)</option>
-        <option value="4">4 (65-70 dBZ)</option>
-        <option value="5">5 (&gt;70 dBZ)</option>
-      </select>
+    <div class="input-row">
+      <label for="surfaceRhInput">Surface RH (%)</label>
+      <input type="number" id="surfaceRhInput" value="60" />
+      <span class="note">Used for "Humidity" factor</span>
     </div>
 
-    <!-- Calculate Button -->
     <button onclick="calculateTPI()">Calculate TPI</button>
 
-    <!-- Result Display -->
+    <!-- Display factor conversions -->
+    <div class="factors" id="factorDisplay"></div>
+
+    <!-- Final results -->
     <div id="result"></div>
+    <div id="synergyBreakdown"></div>
   </div>
-
-  <!-- INFO SECTION -->
-  <div class="info-section">
-    <h2>How the TPI Works</h2>
-    <p>
-      The <strong>Thunderstorm Power Index (TPI)</strong> is a simple way to estimate a storm’s potential strength.  
-      It combines five factors—<em>CAPE, Wind Shear, Lightning, Updraft Strength, and Precipitation Core</em>—into  
-      a single value from <strong>5</strong> (weak) to <strong>25</strong> (extreme). 
-    </p>
-    <h3>Interpretation of Final TPI Score</h3>
-    <ul>
-      <li><strong>5–10:</strong> Weak to Moderate Thunderstorm Potential</li>
-      <li><strong>11–15:</strong> Strong Storm Potential (could be locally severe)</li>
-      <li><strong>16–20:</strong> Severe Storm Potential (large hail, damaging winds, maybe tornadoes)</li>
-      <li><strong>21–25:</strong> Extreme Storm Potential (significant severe threat)</li>
-    </ul>
-    <p>Even low scores can still produce hazardous weather (e.g., lightning, localized flooding). Always follow <strong>official forecasts and warnings</strong>.</p>
-
-    <h2>CAPE (Convective Available Potential Energy)</h2>
-    <ul>
-      <li><strong>Field/Hobbyist:</strong> Look for “moderate instability” or approximate CAPE in local forecasts/apps.</li>
-      <li><strong>Professional:</strong> Use weather balloon soundings or high-resolution model data (HRRR, ACCESS, etc.).</li>
-    </ul>
-    <table>
-      <thead>
-        <tr>
-          <th>Score (C)</th>
-          <th>CAPE Range (J/kg)</th>
-          <th>Typical Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>&lt; 500</td>
-          <td>Very low (weak or isolated storms)</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>500–1500</td>
-          <td>Low-moderate instability</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>1500–3000</td>
-          <td>High (strong storms likely)</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>3000–4500</td>
-          <td>Very high (severe storms probable)</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>&gt; 4500</td>
-          <td>Extreme (explosive storms possible)</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Wind Shear (S)</h2>
-    <ul>
-      <li><strong>Field/Hobbyist:</strong> Forecast says “weak,” “moderate,” or “strong” shear. Or check SPC (U.S.).</li>
-      <li><strong>Professional:</strong> 0–6 km bulk shear in knots. More shear = more organized storms.</li>
-    </ul>
-    <p><em>Note:</em> 1 knot (kt) ≈ 1.15 mph ≈ 1.85 km/h.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Score (S)</th>
-          <th>Shear (knots)</th>
-          <th>Approx. mph</th>
-          <th>Approx. km/h</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>&lt; 20</td>
-          <td>&lt; 23 mph</td>
-          <td>&lt; 37 km/h</td>
-          <td>Weak Shear</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>20–35</td>
-          <td>23–40 mph</td>
-          <td>37–65 km/h</td>
-          <td>Modest</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>35–50</td>
-          <td>40–58 mph</td>
-          <td>65–93 km/h</td>
-          <td>Decent/Moderate</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>50–65</td>
-          <td>58–75 mph</td>
-          <td>93–120 km/h</td>
-          <td>Strong</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>&gt; 65</td>
-          <td>&gt; 75 mph</td>
-          <td>&gt; 120 km/h</td>
-          <td>Very Strong</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Lightning (L)</h2>
-    <ul>
-      <li><strong>Field/Hobbyist:</strong> Check free apps (LightningMaps.org) or estimate visually (flashes every few seconds).</li>
-      <li><strong>Professional:</strong> Real-time lightning detection networks or satellite-based mappers.</li>
-    </ul>
-    <table>
-      <thead>
-        <tr>
-          <th>Score (L)</th>
-          <th>Lightning Frequency</th>
-          <th>Approx. Flashes/Minute</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Occasional, big quiet gaps</td>
-          <td>&lt; 5</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Steady, not rapid</td>
-          <td>5–15</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Frequent (flashes every few secs)</td>
-          <td>15–30</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Very frequent “almost continuous”</td>
-          <td>30–45</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Intense barrage “strobe effect”</td>
-          <td>&gt; 45</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Updraft Strength (U)</h2>
-    <ul>
-      <li><strong>Field/Hobbyist:</strong> Hail reports, strong outflow, rapid tower growth, echo tops. </li>
-      <li><strong>Professional:</strong> Updraft Helicity (UH), Doppler velocity (rotation), large hail signatures.</li>
-    </ul>
-    <p>For hail, note 1 inch = 2.54 cm, 1.5" ~ 3.8 cm, 2" ~ 5.1 cm, 2.5" ~ 6.4 cm.</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Score (U)</th>
-          <th>Field Clues (Imperial &amp; Metric Hail)</th>
-          <th>Potential Updraft Strength</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>No hail or &lt;0.5" (~1.3 cm)</td>
-          <td>Weak, minimal vertical motion</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Small hail (0.5–1.0" / 1.3–2.5 cm)</td>
-          <td>Modest updraft, short-lived</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Hail ~1.0–1.5" (~2.5–3.8 cm)</td>
-          <td>Strong updraft, possible supercell</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Hail 1.5–2.5" (~3.8–6.4 cm)</td>
-          <td>Very strong, severe threat</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>&gt;2.5" (&gt;6.4 cm)</td>
-          <td>Extreme updraft/rotation likely</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Precipitation Core (P)</h2>
-    <ul>
-      <li><strong>Field/Hobbyist:</strong> Free radar apps (RadarScope, Weather Underground) for reflectivity dBZ.</li>
-      <li><strong>Professional:</strong> Advanced radar (dual-pol, VIL). Over ~65 dBZ often signals hail.</li>
-    </ul>
-    <table>
-      <thead>
-        <tr>
-          <th>Score (P)</th>
-          <th>Reflectivity (dBZ)</th>
-          <th>Typical Radar Appearance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>&lt; 55</td>
-          <td>Green/Yellow (moderate rain)</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>55–60</td>
-          <td>Orange/Red (heavy rain)</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>60–65</td>
-          <td>Dark Red (very heavy, small hail)</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>65–70</td>
-          <td>Purple/White (likely hail)</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>&gt; 70</td>
-          <td>Extreme (strong hail core)</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p>
-      <strong>Measurement Conversions:</strong> 1 knot ~ 1.15 mph ~ 1.85 km/h | 1" hail ~ 2.54 cm
-      <br />
-      By combining (C) CAPE + (S) Shear + (L) Lightning + (U) Updraft + (P) Precip,  
-      you get a <strong>TPI</strong> from <strong>5 to 25</strong>.
-    </p>
-  </div>
-
-  <!-- CONTRIBUTING SECTION -->
-  <div class="contributing-section">
-    <h2>Contributing &amp; Feedback</h2>
-    <p>
-      Thank you for your interest in improving the
-      <strong>Thunderstorm Power Index (TPI) Calculator</strong>! You can find the repository here:
-      <a href="https://github.com/bassyboi/tpi-calculator" target="_blank">
-        github.com/bassyboi/tpi-calculator
-      </a>.
-    </p>
-    <hr />
-
-    <h3>1. Suggest Ideas</h3>
-    <p>
-      Have a new feature or tweak in mind? Please open a <strong>GitHub Issue</strong>:
-    </p>
-    <ol>
-      <li>
-        Go to 
-        <a href="https://github.com/bassyboi/tpi-calculator/issues" target="_blank">
-          Issues
-        </a>.
-      </li>
-      <li>Click <code>New issue</code>.</li>
-      <li>Provide a descriptive title (e.g. "Improve hail-size guidelines") and detail.</li>
-    </ol>
-
-    <h3>2. Report an Issue or Bug</h3>
-    <p>
-      Found a bug? Something not working? Let us know:
-    </p>
-    <ol>
-      <li>
-        Visit 
-        <a href="https://github.com/bassyboi/tpi-calculator/issues" target="_blank">
-          the Issues page
-        </a>.
-      </li>
-      <li>Click <code>New issue</code>, use a title like "Bug:" or "Error:".</li>
-      <li>Explain:
-        <ul>
-          <li>What you did (steps to reproduce).</li>
-          <li>What you expected vs. what happened.</li>
-          <li>Attach console errors or screenshots if possible.</li>
-        </ul>
-      </li>
-    </ol>
-
-    <h3>3. Contribute Code (Pull Requests)</h3>
-    <ol>
-      <li>Fork the repo by clicking <code>Fork</code> at the top right of the
-        <a href="https://github.com/bassyboi/tpi-calculator" target="_blank">GitHub page</a>.
-      </li>
-      <li>Clone your fork locally:  
-        <code>git clone https://github.com/YourUsername/tpi-calculator.git</code>
-      </li>
-      <li>Create a branch: <code>git checkout -b feature/improve-hail-scale</code></li>
-      <li>Make changes, then <code>git add .</code> & <code>git commit -m "Improve hail size guidelines"</code></li>
-      <li>Push & open a pull request describing what you changed.</li>
-    </ol>
-    <p>A maintainer will review and possibly merge your PR.</p>
-
-    <h3>4. Ideas for Future Enhancements</h3>
-    <ul>
-      <li>Interactive input for exact CAPE/Shear values (auto-convert to 1–5 scale).</li>
-      <li>Localization for different regions (more Australian references, etc.).</li>
-      <li>Better visuals or real-time storm data integration.</li>
-      <li>Weather API hook to auto-populate factors if a user inputs a location.</li>
-    </ul>
-
-    <h3>5. Stay Informed</h3>
-    <p>
-      You can <strong>watch</strong> or <strong>star</strong> the repository on GitHub to get updates.
-      If you have questions, post an issue labeled <code>question</code>.
-    </p>
-  </div>
-
-  <footer>
-    <p>
-      &copy; 2023 TPI Calculator — 
-      <a href="https://github.com/bassyboi/tpi-calculator" target="_blank">GitHub Repo</a>  
-      <br />
-      Created by <strong>YourName</strong> — Field &amp; Pro Guidance (Metric &amp; Imperial)
-    </p>
-  </footer>
 
   <script>
-    function calculateTPI() {
-      // Get selected values
-      const cape      = parseInt(document.getElementById('capeFactor').value, 10);
-      const shear     = parseInt(document.getElementById('shearFactor').value, 10);
-      const lightning = parseInt(document.getElementById('lightningFactor').value, 10);
-      const updraft   = parseInt(document.getElementById('updraftFactor').value, 10);
-      const precip    = parseInt(document.getElementById('precipFactor').value, 10);
+    /**
+     * MAP FUNCTIONS:
+     * Convert raw numeric inputs to factor scale (1–5).
+     */
 
-      // Sum them
-      const TPI = cape + shear + lightning + updraft + precip;
-
-      // Basic interpretation logic
-      let interpretation = '';
-      if (TPI <= 10) {
-        interpretation = 'Weak to Moderate Thunderstorm Potential';
-      } else if (TPI <= 15) {
-        interpretation = 'Strong Storm Potential (could be locally severe)';
-      } else if (TPI <= 20) {
-        interpretation = 'Severe Storm Potential (large hail, damaging winds, maybe tornadoes)';
-      } else {
-        interpretation = 'Extreme Storm Potential (significant severe threat)';
-      }
-
-      // Display result
-      const resultDiv = document.getElementById('result');
-      // Use backticks for multi-line string
-      resultDiv.innerHTML = `
-        <strong>TPI = ${TPI}</strong><br />
-        <em>${interpretation}</em>
-      `;
+    function mapCAPEtoFactor(cape) {
+      // Example thresholds:
+      // 1: <500
+      // 2: 500–1500
+      // 3: 1500–3000
+      // 4: 3000–4500
+      // 5: >4500
+      if (cape < 500)    return 1;
+      if (cape < 1500)   return 2;
+      if (cape < 3000)   return 3;
+      if (cape < 4500)   return 4;
+      return 5; // >=4500
     }
 
-    // ADDED CODE: PREDICT LIGHTNING FUNCTION
-    function predictLightning() {
-      /**
-       * For demo, we’ll just produce a random factor (1–5).
-       * You could replace this with an actual API call or
-       * advanced logic derived from Skew-T data.
-       */
-      const randomFactor = Math.floor(Math.random() * 5) + 1;
-      // Set the dropdown value
-      document.getElementById('lightningFactor').value = randomFactor;
-      // (Optional) Give the user some feedback
-      alert(`Predicted Lightning Factor: ${randomFactor}`);
+    function mapShearToFactor(shearKnots) {
+      // 1: <20 kt
+      // 2: 20–35 kt
+      // 3: 35–50 kt
+      // 4: 50–65 kt
+      // 5: >65 kt
+      if (shearKnots < 20)  return 1;
+      if (shearKnots <= 35) return 2;
+      if (shearKnots <= 50) return 3;
+      if (shearKnots <= 65) return 4;
+      return 5;
+    }
+
+    function mapLightningToFactor(flashesMin) {
+      // 1: <5
+      // 2: 5–15
+      // 3: 15–30
+      // 4: 30–45
+      // 5: >45
+      if (flashesMin < 5)   return 1;
+      if (flashesMin <= 15) return 2;
+      if (flashesMin <= 30) return 3;
+      if (flashesMin <= 45) return 4;
+      return 5; // >45
+    }
+
+    function mapMidLevelRHtoDrynessFactor(rhPercent) {
+      // Invert logic:  low RH => high dryness factor
+      // e.g. if 0–20% => dryness=5, 20–40 => dryness=4, 40–60 => dryness=3, etc.
+      if (rhPercent < 0) rhPercent = 0;
+      if (rhPercent > 100) rhPercent = 100; // clamp
+
+      if (rhPercent <= 20) return 5;  // very dry
+      if (rhPercent <= 40) return 4;
+      if (rhPercent <= 60) return 3;
+      if (rhPercent <= 80) return 2;
+      return 1; // >80% => very moist
+    }
+
+    function mapSurfaceRHtoHumidityFactor(rhPercent) {
+      // High RH => high humidity factor
+      // 1: <=40%
+      // 2: 41–50%
+      // 3: 51–65%
+      // 4: 66–80%
+      // 5: >80%
+      if (rhPercent < 0) rhPercent = 0;
+      if (rhPercent > 100) rhPercent = 100; // clamp
+
+      if (rhPercent <= 40) return 1;
+      if (rhPercent <= 50) return 2;
+      if (rhPercent <= 65) return 3;
+      if (rhPercent <= 80) return 4;
+      return 5; // >80%
+    }
+
+    /**
+     * AUTO-UPDRAFT from CAPE (+ dryness/humidity).
+     * Example logic:
+     *   U_raw = CAPE_factor
+     *   U_raw -= 0.5*(Dryness_factor -3) if dryness>3
+     *   U_raw += 0.5*(Humidity_factor-3) if humidity>3
+     *   Then clamp 1–5
+     */
+    function autoUpdraft(capeFactor, drynessFactor, humidityFactor) {
+      let U_raw = capeFactor;
+      // dryness penalty if drynessFactor>3
+      if (drynessFactor > 3) {
+        U_raw -= 0.5 * (drynessFactor - 3);
+      }
+      // humidity boost if humidityFactor>3
+      if (humidityFactor > 3) {
+        U_raw += 0.5 * (humidityFactor - 3);
+      }
+      let U = Math.round(U_raw);
+      if (U < 1) U = 1;
+      if (U > 5) U = 5;
+      return U;
+    }
+
+    /**
+     * Calculate synergy-based TPI using the factors:
+     *   C = CAPE factor
+     *   S = Shear factor
+     *   L = Lightning factor
+     *   D = Dryness (from mid-level RH)
+     *   H = Humidity (from surface RH)
+     *   U = auto updraft
+     *
+     * Synergy: CAPE-Shear, Updraft-Shear, Dryness-Humidity, etc.
+     */
+    function calculateTPI() {
+      // 1) Get raw numeric inputs
+      const capeValue    = parseFloat(document.getElementById('capeInput').value) || 0;
+      const shearValue   = parseFloat(document.getElementById('shearInput').value) || 0;
+      const lightningVal = parseFloat(document.getElementById('lightningInput').value) || 0;
+      const midRhVal     = parseFloat(document.getElementById('midRhInput').value) || 0;
+      const surfaceRhVal = parseFloat(document.getElementById('surfaceRhInput').value) || 0;
+
+      // 2) Map to factors
+      const C = mapCAPEtoFactor(capeValue);
+      const S = mapShearToFactor(shearValue);
+      const L = mapLightningToFactor(lightningVal);
+      const D = mapMidLevelRHtoDrynessFactor(midRhVal);
+      const H = mapSurfaceRHtoHumidityFactor(surfaceRhVal);
+
+      // Updraft factor auto-derived from CAPE (and dryness/humidity)
+      const U = autoUpdraft(C, D, H);
+
+      // 3) Base TPI = sum of all 6 factors (C, S, L, U, D, H)
+      // Precip factor is omitted in this minimal example, but you could add it similarly.
+      // For now, let's keep it at 6. If you want precipitation, just do P=mapPrecipFactor(whatever) and add it.
+      const baseTPI = C + S + L + U + D + H;
+
+      // 4) Calculate synergy
+      // (a) CAPE-Shear synergy
+      let synergyCAPE_Shear = 0;
+      if (C > 2 && S > 2) {
+        synergyCAPE_Shear = (C - 2) * (S - 2);
+      }
+
+      // (b) Updraft-Shear synergy
+      let synergyUpdraft_Shear = 0;
+      if (U > 2 && S > 2) {
+        synergyUpdraft_Shear = (U - 2) * ((S - 2) / 2);
+      }
+
+      // (c) Dryness-Humidity synergy
+      let synergyDryness_Humidity = 0;
+      if (D >= 4 && H <= 2) {
+        // dryness high + surface humidity low => negative synergy
+        synergyDryness_Humidity = -(D - 3) * (3 - H);
+      }
+      else if (D <= 2 && H >= 4) {
+        // dryness low + humidity high => positive synergy
+        synergyDryness_Humidity = (3 - D) * (H - 3);
+      }
+
+      // Sum synergy
+      let totalSynergy = synergyCAPE_Shear + synergyUpdraft_Shear + synergyDryness_Humidity;
+      totalSynergy = Math.round(totalSynergy);
+
+      // 5) Final TPI
+      let TPI = baseTPI + totalSynergy;
+
+      // 6) Interpretation
+      let interpretation;
+      if (TPI < 10) {
+        interpretation = 'Weak or Marginal Storm Potential';
+      } else if (TPI < 18) {
+        interpretation = 'Moderate to Strong Potential';
+      } else if (TPI < 25) {
+        interpretation = 'Severe Storm Likely (hail, wind)';
+      } else {
+        interpretation = 'Extreme Potential (supercells, tornadoes possible)';
+      }
+
+      // 7) Display factor breakdown & synergy
+      document.getElementById('factorDisplay').innerHTML = `
+        <strong>Factor Conversions:</strong><br/>
+        CAPE (J/kg) = ${capeValue} => Factor C=${C}<br/>
+        Shear (kt) = ${shearValue} => Factor S=${S}<br/>
+        Lightning (/min) = ${lightningVal} => Factor L=${L}<br/>
+        Mid-level RH (%) = ${midRhVal} => Dryness Factor D=${D}<br/>
+        Surface RH (%) = ${surfaceRhVal} => Humidity Factor H=${H}<br/>
+        Updraft Factor (U) [auto] = ${U}
+      `;
+
+      document.getElementById('result').innerHTML = `
+        <strong>Base TPI = ${baseTPI}</strong><br/>
+        <strong>Synergy = ${totalSynergy}</strong><br/>
+        <strong>Final TPI = ${TPI}</strong><br/>
+        <em>${interpretation}</em>
+      `;
+
+      document.getElementById('synergyBreakdown').innerHTML = `
+        <strong>Synergy Breakdown:</strong><br/>
+        <ul>
+          <li>CAPE-Shear = ${Math.round(synergyCAPE_Shear)}</li>
+          <li>Updraft-Shear = ${Math.round(synergyUpdraft_Shear)}</li>
+          <li>Dryness-Humidity = ${Math.round(synergyDryness_Humidity)}</li>
+        </ul>
+      `;
     }
   </script>
 </body>
